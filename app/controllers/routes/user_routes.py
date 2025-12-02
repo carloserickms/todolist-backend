@@ -8,7 +8,7 @@ import os, jwt
 
 user_route = Blueprint('user_routes', __name__)
 
-user_route.route('/api/v1/create_user', methods=["POST"])
+@user_route.route('/api/v1/create_user', methods=["POST"])
 def create_user():
     if request.method == 'POST':
         try:
@@ -32,7 +32,7 @@ def create_user():
 
             return jsonify({
                 'status': 'ok',
-                'message': 'Usuário cadastrado com secesso, obrigado!'
+                'message': 'Usuário cadastrado com secesso!'
             }), 201
         
         except Exception as error:

@@ -4,6 +4,4 @@ from app import create_app
 app = create_app()
 
 if __name__ == '__main__':
-    with app.app_context():
-
-        app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True)
