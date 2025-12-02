@@ -1,6 +1,7 @@
 from flask import Flask
 from .db_config import db, ma, migrate
 from dotenv import load_dotenv
+from app.controllers.routes.user_routes import user_route
 import os
 
 
@@ -13,7 +14,9 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
     ma.init_app(app)
+
+    app.register_blueprint(user_route)
 
     return app
