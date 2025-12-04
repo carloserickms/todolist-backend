@@ -73,11 +73,3 @@ htmlcov/
 .DS_Store
 Thumbs.db
 
-# ============================================
-# Migrations (Flask-Migrate / Alembic)
-# ============================================
-migrations/versions/*.pyc
-migrations/versions/*~*
-migrations/versions/*.py
-
-# Caso você queira versionar as migrações, REMOVA o bloco acima!
