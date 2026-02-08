@@ -8,7 +8,7 @@ import os, jwt
 
 user_route = Blueprint('user_routes', __name__)
 
-@user_route.route('/api/v1/create_user', methods=["POST"])
+@user_route.route('/api/v1/user/create_user', methods=["POST"])
 def create_user():
     if request.method == 'POST':
         try:
@@ -40,3 +40,31 @@ def create_user():
                     'status': 'error',
                     'message': f'An error has occurred!{str(error)}'
                 }), 500
+        
+
+@user_route.route('/api/v1/user/delete_user/<string:user_id>', methods=["DELETE"])
+def delete_user(user_id):
+    
+    user = User.query.get(user_id)
+
+    if not user:
+        return jsonify({
+            'status': 'error',
+            'message': 'Usuário não existe na base de dados.'
+        }), 404
+    
+    try:
+        db.session.delete(user)
+        db.session.commit()
+
+        return jsonify({
+            'status': 'success',
+            'message': 'Usuário removido!'
+        }), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({
+            'status': 'error',
+            'message': f'Erro ao deletar: {str(e)}'
+        }), 500
